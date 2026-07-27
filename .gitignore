@@ -1,0 +1,45 @@
+# Python virtual environments
+venv/
+.venv/
+backend/venv/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Trained ML model artifacts
+*.pkl
+*.joblib
+
+# Datasets
+/datasets/
+/backend/datasets/
+
+# Environment files
+.env
+*.env
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+
+# Frontend dependencies
+frontend/node_modules/
