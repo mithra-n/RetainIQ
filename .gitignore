@@ -1,45 +1,78 @@
-# Python virtual environments
+# ==================================================
+# Python Virtual Environments
+# ==================================================
 venv/
 .venv/
 backend/venv/
 
-# Python cache and compiled files
+# ==================================================
+# Python Cache
+# ==================================================
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
+.pytest_cache/
 
-# Jupyter notebook checkpoints
+# ==================================================
+# Jupyter
+# ==================================================
 .ipynb_checkpoints/
 
-# Trained ML model artifacts
-*.pkl
-*.joblib
-
-# Datasets
-/datasets/
-/backend/datasets/
-
-# Environment files
+# ==================================================
+# Environment Variables
+# ==================================================
 .env
-*.env
+.env.*
+!.env.example
 
-# VS Code settings
+# ==================================================
+# SQLite Database
+# ==================================================
+backend/users.db
+
+# ==================================================
+# Frontend Dependencies
+# ==================================================
+frontend/node_modules/
+
+# ==================================================
+# Frontend Build Output
+# (Ignore ONLY if you rebuild before running)
+# If your integrated deployment depends on committing
+# frontend/dist, comment this line out.
+# ==================================================
+frontend/dist/
+
+# ==================================================
+# VS Code
+# ==================================================
 .vscode/
 
-# OS files
+# ==================================================
+# Operating System Files
+# ==================================================
 .DS_Store
 Thumbs.db
 
+# ==================================================
 # Logs
+# ==================================================
 *.log
 
-# Temporary files
+# ==================================================
+# Temporary Files
+# ==================================================
 tmp/
 temp/
 *.tmp
 *.swp
 *.swo
 
-# Frontend dependencies
-frontend/node_modules/
+# ==================================================
+# Dataset Files (Optional)
+# Keep this only if datasets are NOT required
+# in the GitHub repository.
+# ==================================================
+datasets/
+backend/datasets/
