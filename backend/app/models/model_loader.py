@@ -13,6 +13,8 @@ class ModelLoader:
         self._model = None
         self._scaler = None
         self._label_encoders = None
+        self._kmeans = None
+        self._shap_explainer = None
         self.is_ready = False
 
     def _artifact_path(self, filename: str) -> Path:
@@ -41,6 +43,16 @@ class ModelLoader:
         else:
             self._label_encoders = None
 
+        kmeans_path = self.base_dir / "saved_models" / "kmeans_model.pkl"
+        if not kmeans_path.exists():
+            raise FileNotFoundError(f"Required model artifact not found: {kmeans_path}")
+        self._kmeans = joblib.load(kmeans_path)
+
+        shap_path = self.base_dir / "saved_models" / "shap_explainer.pkl"
+        if not shap_path.exists():
+            raise FileNotFoundError(f"Required model artifact not found: {shap_path}")
+        self._shap_explainer = joblib.load(shap_path)
+
         self.is_ready = True
 
     def get_model(self) -> Any:
@@ -57,6 +69,16 @@ class ModelLoader:
         if not self.is_ready:
             self.load()
         return self._label_encoders
+
+    def get_kmeans(self) -> Any:
+        if not self.is_ready:
+            self.load()
+        return self._kmeans
+
+    def get_shap_explainer(self) -> Any:
+        if not self.is_ready:
+            self.load()
+        return self._shap_explainer
 
 
 loader = ModelLoader()

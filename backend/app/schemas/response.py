@@ -1,5 +1,3 @@
-from typing import Any
-
 from pydantic import BaseModel, Field
 
 
@@ -9,5 +7,5 @@ class PredictionResponse(BaseModel):
     prediction: int | None = Field(default=None, description="Predicted churn label")
     probability: float | None = Field(default=None, description="Prediction probability")
     customer_segment: str | None = Field(default=None, description="Assigned customer segment")
-    shap_values: list[dict[str, Any]] | None = Field(default=None, description="Local SHAP contribution values")
-    recommendations: list[dict[str, Any]] | None = Field(default=None, description="Personalized retention recommendations")
+    shap_values: dict[str, float] | None = Field(default=None, description="Top-5 SHAP feature contributions")
+    recommendations: list[str] | None = Field(default=None, description="Prioritised retention recommendations")

@@ -5,6 +5,9 @@ from typing import Any
 import pandas as pd
 
 from app.models.model_loader import loader
+from app.segmentation.kmeans import get_customer_segment
+from app.explainability.shap_service import get_shap_values
+from app.recommendation.recommendation_service import generate_recommendations
 
 FEATURE_ORDER = [
     "CreditScore", "Age", "Tenure", "Balance", "NumOfProducts",
@@ -62,8 +65,19 @@ class Predictor:
         model = self._loader.get_model()
         probability = model.predict_proba(scaled_features)[0, 1]
         prediction = int(model.predict(scaled_features)[0])
+        customer_segment = get_customer_segment(scaled_features)
+        shap_values = get_shap_values(scaled_features)
+        recommendations = generate_recommendations(
+            prediction=prediction,
+            probability=float(probability),
+            customer_segment=customer_segment,
+            shap_values=shap_values,
+        )
 
         return {
             "prediction": prediction,
             "probability": float(probability),
+            "customer_segment": customer_segment,
+            "shap_values": shap_values,
+            "recommendations": recommendations,
         }

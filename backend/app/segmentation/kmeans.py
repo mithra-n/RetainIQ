@@ -1,27 +1,19 @@
 from __future__ import annotations
 
-from typing import Any
+import pandas as pd
+
+from app.models.model_loader import loader
+
+CLUSTER_NAMES: dict[int, str] = {
+    0: "High Value Loyal",
+    1: "High Risk",
+    2: "Potential Growth",
+    3: "Low Engagement",
+}
 
 
-class Segmenter:
-    """Assign a customer segment based on basic heuristics when clustering artifacts are unavailable."""
-
-    def __init__(self) -> None:
-        self.default_segment = "unknown"
-
-    def segment_customer(self, features: dict[str, Any]) -> dict[str, Any]:
-        if not features:
-            raise ValueError("Customer features must not be empty.")
-
-        if "tenure" in features:
-            tenure = float(features["tenure"])
-            if tenure < 12:
-                segment = "new"
-            elif tenure < 36:
-                segment = "growth"
-            else:
-                segment = "loyal"
-        else:
-            segment = self.default_segment
-
-        return {"segment": segment}
+def get_customer_segment(scaled_features: pd.DataFrame) -> str:
+    """Predict the cluster for a single scaled feature row and return its business name."""
+    kmeans = loader.get_kmeans()
+    cluster_id = int(kmeans.predict(scaled_features)[0])
+    return CLUSTER_NAMES.get(cluster_id, f"Cluster {cluster_id}")

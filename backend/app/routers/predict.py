@@ -24,5 +24,7 @@ async def predict_churn(request: PredictionRequest) -> PredictionResponse:
     return PredictionResponse(
         prediction=result["prediction"],
         probability=result["probability"],
-        explanation="Churn probability generated from the persisted model artifact.",
+        customer_segment=result["customer_segment"],
+        shap_values=result["shap_values"],
+        recommendations=result["recommendations"],
     )
